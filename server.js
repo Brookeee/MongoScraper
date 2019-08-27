@@ -26,6 +26,7 @@ app.use(express.static("public"));
 var MONGO_URI = process.env.MONGO_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGO_URI);
+
 // Routes
 app.get("/", function(req, res) {
   db.Article.find(function(data) {
@@ -78,7 +79,7 @@ app.get("/articles/:id", function(req, res) {
     });
 });
 
-db.post("/articles/:id", function(req, res) {
+app.post("/articles/:id", function(req, res) {
   db.Note.create(req.body)
     .then(function(dbNote) {
       return db.Article.findOneAndUpdate(
