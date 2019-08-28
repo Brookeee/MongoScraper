@@ -16,6 +16,7 @@ var PORT = process.env.PORT || 3000;
 
 // Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Parse body as JSON
 app.use(express.urlencoded({ extended: false }));
