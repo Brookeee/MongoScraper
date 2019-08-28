@@ -12,7 +12,7 @@ var app = express();
 var db = require("./models");
 
 // Port
-var PORT = process.env.PORT || 3000;
+var PORT = 3000;
 
 // Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -24,10 +24,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to mongo database
-var MONGO_URI = process.env.MONGO_URI || "mongodb://localhost/mongoHeadlines";
+var MONGO_URI = process.env.MONGO_URI || "mongodb://heroku_crppxzbq:ust8j2ebofp7rkmimae7enhght@ds033153.mlab.com:33153/heroku_crppxzbq";
 
 mongoose.connect(MONGO_URI);
-
+console.log("Mongoose connected" + MONGO_URI);
 // Routes
 app.get("/", function(req, res) {
   db.Article.find(function(data) {
