@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="name"> CNN Crime + Justice</h1>
+    <h1 class="name"> Crime + Justice</h1>
     <h3 class="info">Informative articles on crime around the world</h3>
 </div>
 <div class="container">
@@ -7,7 +7,9 @@
         <div class="col-md-2"></div>
         <div class="col-md-2"></div>
         <div class="col-md-2">
-            <a href="/scrape"> <button type="button" class="btn btn-danger scrape">Scrape Articles</button></a>
+            <form action="/scrape" method="POST">
+                <a href="/scrape"> <button type="button" class="btn btn-danger scrape">Scrape Articles</button></a>
+            </form>
         </div>
         <div class="col-md-2">
         </div>
@@ -15,11 +17,10 @@
         <div class="col-md-2"></div>
     </div>
 </div>
+<br>
+<!-- GET ARTICLES not working, Check DB connection -->
+{{#each articles}}
+{{/each}}
 
-<div>
-    <ul id="article">
-        {{#each Article}}
-        {{/each}}
-    </ul>
-</div>
-</div>
+<!-- Pseudo code notes --> 
+<!-- Trouble shoot article/articles/Articles/Article each issue. Articles will not show on local host. Unable to GET. shows in Mlab Add Note for each logic 

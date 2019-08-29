@@ -4,6 +4,7 @@ var mongoose = require("mongoose");
 var exphbs = require("express-handlebars");
 var cheerio = require("cheerio");
 var axios = require("axios");
+var logger = require("morgan");
 
 // Initialize express
 var app = express();
@@ -18,29 +19,45 @@ var PORT = 3000;
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+//Middleware
+app.use(logger("dev"));
 // Parse body as JSON
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to mongo database
-var MONGO_URI = process.env.MONGO_URI || "mongodb://heroku_crppxzbq:ust8j2ebofp7rkmimae7enhght@ds033153.mlab.com:33153/heroku_crppxzbq";
+// var MONGODB_URI =
+//   process.env.MONGODB_URI ||
+//   "mongodb://heroku_crppxzbq:ust8j2ebofp7rkmimae7enhght@ds033153.mlab.com:33153/heroku_crppxzbq";
 
-mongoose.connect(MONGO_URI);
-console.log("Mongoose connected" + MONGO_URI);
+//   mongoose.connect(MONGODB_URI)
+
+var MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+// mongoose.connect("mongodb://localhost/mongoHeadlines", {useNewUrlParser: true});
+mongoose.connect(MONGODB_URI, function(err) {
+ if (err) {
+ console.log(err);
+} else {
+ console.log("Connection successful");
+}
+});
+
 // Routes
 app.get("/", function(req, res) {
   db.Article.find(function(data) {
     res.render("index", data);
-  });
-});
+  })
+})
 app.get("/scrape", function(req, res) {
   axios
-    .get("https://www.cnn.com/specials/us/crime-and-justice")
+    .get("https://www.huffpost.com/topic/crime-and-justice")
     .then(function(response) {
       var $ = cheerio.load(response.data);
 
-      $(".cd__headline-text").each(function(i, element) {
+      $(".card__headline-text").each(function(i, element) {
         var result = {};
         result.title = $(this).attr("title");
         result.link = $(this).attr("href");
@@ -49,6 +66,7 @@ app.get("/scrape", function(req, res) {
           .attr("src");
         db.Article.create(result)
           .then(function(dbArticle) {
+            res.json(result);
             console.log(dbArticle);
           })
           .catch(function(err) {
@@ -59,17 +77,17 @@ app.get("/scrape", function(req, res) {
     });
 });
 
-app.get("/articles", function(req, res) {
+app.get("/article", function(req, res) {
   db.Article.find({})
-    .then(function(dbArticle) {
-      res.json(dbArticle);
+    .then(function(data) {
+      res.json(data);
     })
     .catch(function(err) {
       res.json(err);
     });
 });
 
-app.get("/articles/:id", function(req, res) {
+app.get("/article/:id", function(req, res) {
   db.Article.findOne({ _id: req.params.id })
     .populate("note")
     .then(function(dbArticle) {
@@ -80,7 +98,7 @@ app.get("/articles/:id", function(req, res) {
     });
 });
 
-app.post("/articles/:id", function(req, res) {
+app.post("/article/:id", function(req, res) {
   db.Note.create(req.body)
     .then(function(dbNote) {
       return db.Article.findOneAndUpdate(
@@ -90,6 +108,7 @@ app.post("/articles/:id", function(req, res) {
       );
     })
     .then(function(dbArticle) {
+      console.log(dbArticle);
       res.json(dbArticle);
     })
     .catch(function(err) {

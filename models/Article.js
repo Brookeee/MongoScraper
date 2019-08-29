@@ -7,23 +7,21 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
-  urlLink: {
+  link: {
     type: String,
     required: true
-  },
-  summary: {
-    type: String
   },
   image: {
     type: String,
     required: true
   },
-  saved: {
-    type: Boolean
-  },
-  // Note object storing Note id 
+  // saved: {
+  //   type: Boolean
+  // },
+  // Note object storing Note id
   note: {
     type: Schema.Types.ObjectId,
     ref: "Note"
