@@ -1,3 +1,0 @@
-// Get JSON /articles 
-
-
