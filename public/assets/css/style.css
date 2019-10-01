@@ -1,3 +1,14 @@
 body {
-    background: grey;
+    background: lightgray;
+}
+.nav-link {
+color: black;
+font-size: 24px;
+font-weight: 100px;
+}
+
+.jumbotron {
+    font-size: 40px;
+    font-weight: 300px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }

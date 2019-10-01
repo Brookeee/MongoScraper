@@ -45,23 +45,19 @@ app.get("/scrape", function(req, res) {
     .then(function(response) {
       var $ = cheerio.load(response.data);
 
-      $("article").each(function(i, element) {
+      $("article h2").each(function(i, element) {
         var result = {};
 
         result.title = $(this)
-          .find("h2")
-          .children()
+          .children("a")
           .text();
         result.link = $(this)
-          .find("h2")
-          .children("href")
+          .children("h2 href")
           .attr("href");
-        result.img = $(this)
-          .find("img")
-          .children("img")
-          .attr("src");
+        // result.img = $(this)
+        //   .children("img")
+        //   .attr("src");
         result.summary = $(this)
-          .find(".p")
           .children("p")
           .text();
         console.log(result);
