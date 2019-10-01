@@ -1,0 +1,41 @@
+  <div class="jumbotron text-center">
+    <h1>NYT Tech News</h1>
+    <h2>Scraped Articles</h2>
+  </div>
+  <div class="nav">
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active" href="/saved">Saved Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/">Tech Home</a>
+      </li>
+    </ul>
+
+  </div>
+  <br>
+  <br>
+
+  <div id="articles">
+    {{#each articles}}
+    <div class="card mb-3">
+      <div class="row">
+        <div class="col-md-4">
+          <img  id="pic-{{@index}}" src={{picture}} class="card-img picture" alt={{title}}>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 class="card-title title" id="title-{{@index}}">{{title}}</h3>
+            <p class="card-text summary" id="summary-{{@index}}">{{summary}}</p>
+            <a class="card-text link" id="link-{{@index}}" target="_blank" href="{{link}}">{{link}}</a>
+           
+            <div class="card-text">
+              <button data-id={{@index}} class="save-article btn btn-outline-info">Save</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+    </div>

@@ -1,17 +1,3 @@
-.name {
-    font-size: 60px;
-    color: black;
-    text-align: center;
-    font-weight: bold;
-}
 body {
-    background-image: url("../img/crime.jpg");
-}
-.info {
-    color: black;
-    text-align: center;
-    font-weight: bold;
-}
-.scrape {
-    text-align: center;
+    background: grey;
 }
