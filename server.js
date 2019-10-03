@@ -54,11 +54,8 @@ app.get("/scrape", function(req, res) {
           .children("a")
           .text();
         result.link = $(element)
-          .children("h2 href")
+          .children("a href")
           .attr("href");
-        // result.img = $(this)
-        //   .children("img")
-        //   .attr("src");
         result.summary = $(element)
           .children("p")
           .text();
