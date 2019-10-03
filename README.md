@@ -2,7 +2,7 @@
 
 A Node.js application utilizing MongoDB and Cheerio to scrape CNN crime and justice articles 
 
-- Check out the deployed link: 
+- Check out the deployed link: https://secret-temple-63491.herokuapp.com/
 
 
 # Technologies Used 
