@@ -27,8 +27,7 @@
           <div class="card-body">
             <h3 class="card-title title" id="title-{{@index}}">{{title}}</h3>
             <p class="card-text summary" id="summary-{{@index}}">{{summary}}</p>
-            <a href="{{this.link}}" target="_blank">{{this.link}}</a>
-             {{!-- target="_blank" href="{{link}}">{{link}}</a> --}}
+            <a class="card-text link" id="link-{{@index}}" target="_blank" href="{{link}}">{{link}}</a>
            
             <div class="card-text">
               <button data-id={{@index}} class="save-article btn btn-outline-info">Save</button>
