@@ -53,8 +53,8 @@ app.get("/scrape", function(req, res) {
         result.title = $(element)
           .children("a")
           .text();
-        result.link = $(element)
-          .children("a href")
+        result.link = "https://www.nytimes.com" + $(element)
+          .children("a")
           .attr("href");
         result.summary = $(element)
           .children("p")
