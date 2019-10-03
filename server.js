@@ -30,7 +30,9 @@ app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 var MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/MongoScraping";
+  process.env.MONGODB_URI || 'mongodb://heroku_dbwr72qj:8fq04c5dtjpl85ns9qq8f09el1@ds229078.mlab.com:29078/heroku_dbwr72qj';
+  
+  // "mongodb://localhost/MongoScraping";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
@@ -48,22 +50,24 @@ app.get("/scrape", function(req, res) {
       $("article h2").each(function(i, element) {
         var result = {};
 
-        result.title = $(this)
+        result.title = $(element)
           .children("a")
           .text();
-        result.link = $(this)
+        result.link = $(element)
           .children("h2 href")
           .attr("href");
         // result.img = $(this)
         //   .children("img")
         //   .attr("src");
-        result.summary = $(this)
+        result.summary = $(element)
           .children("p")
           .text();
-        console.log(result);
+        console.log(result)
 
         db.Article.create(result)
-          .then(function(dbArticle) {})
+          .then(function(dbArticle) {
+
+          })
           .catch(function(err) {
             console.log(err);
           });
@@ -103,7 +107,7 @@ app.get("/articles/:id", function(req, res) {
     .then(function(dbArticle) {
       console.log(dbArticle);
       if (dbArticle) {
-        res.render("articles", {
+        res.render("/articles/", {
           data: dbArticle,
         });
       }

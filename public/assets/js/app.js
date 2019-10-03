@@ -22,8 +22,8 @@ $(document).on("click", ".save-article", function() {
   $(this).hide();
   var data = {};
   data.title = $("#title-" + thisId).text();
-  data.link = $("link-" + thisId).text();
-  data.summary = $("summary-" + thisId).text();
+  data.link = $("#link-" + thisId).text();
+  data.summary = $("#summary-" + thisId).text();
   $.ajax({
     method: "POST",
     dataType: "json",
@@ -32,7 +32,7 @@ $(document).on("click", ".save-article", function() {
   });
 });
 
-$(document).on("click", ".comment-comment", function() {
+$(document).on("click", ".note-comment", function() {
   var thisId = $(this).attr("data-id");
   $.ajax({
     method: "GET",
