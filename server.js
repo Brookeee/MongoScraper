@@ -54,7 +54,7 @@ app.get("/scrape", function(req, res) {
           .children("a")
           .text();
         result.link = "https://www.nytimes.com" + $(element)
-          .children("a")
+          .find("a")
           .attr("href");
         result.summary = $(element)
           .children("p")
